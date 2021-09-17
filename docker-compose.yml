@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  mq:
+    image: rabbitmq:3-management
+    hostname: rabbit1
+    environment:
+      RABBITMQ_ERLANG_COOKIE: SWQOKODSQALRPCLNMEQG
+      RABBITMQ_DEFAULT_USER: rabbitmq
+      RABBITMQ_DEFAULT_PASS: rabbitmq
+      RABBITMQ_DEFAULT_VHOST: /
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    labels:
+      NAME: rabbitmq1
+    volumes:
+      - ./localmq/enabled_plugins:/etc/rabbitmq/enabled_plugins
+  db:
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    image: postgres:13.3
+    ports:
+      - 5439:5432
+    restart: always
+    volumes:
+      - ./localdb/data:/var/lib/postgresql
