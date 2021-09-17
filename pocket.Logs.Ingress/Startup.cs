@@ -28,10 +28,10 @@ namespace pocket.Logs.Ingress
                 Configuration.GetSection(LogsTfProcessorConfiguration.LogsTfProcessor));
             services.Configure<RabbitMqConfiguration>(Configuration.GetSection(RabbitMqConfiguration.RabbitMq));
 
-            // services.AddDbContext<LogsContext>(b => b
-            //     .UseLazyLoadingProxies()
-            //     .UseNpgsql(Configuration.GetConnectionString("Default"),
-            //         x => x.MigrationsAssembly("pocket.Logs.Migrations")));
+             services.AddDbContext<LogsContext>(b => b
+                 .UseLazyLoadingProxies()
+                 .UseNpgsql(Configuration.GetConnectionString("Default"),
+                     x => x.MigrationsAssembly("pocket.Logs.Migrations")));
 
             services.AddGrpc();
 
@@ -40,11 +40,11 @@ namespace pocket.Logs.Ingress
 
             services.AddHttpClient();
             //services.AddTransient<IQueueConnectionProvider, QueueConnectionProvider>();
-            //services.AddTransient<ILogClient, LogClient>();
-            //services.AddScoped<LogAnalysisService>();
+            services.AddTransient<ILogClient, LogClient>();
+            services.AddScoped<LogAnalysisService>();
 
-            //services.AddHostedService<LogProcessService>();
-            //services.AddHostedService<IngressService>();
+            services.AddHostedService<LogProcessService>();
+            services.AddHostedService<IngressService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
