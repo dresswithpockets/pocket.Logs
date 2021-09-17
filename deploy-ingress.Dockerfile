@@ -14,12 +14,12 @@ USER appuser
 FROM mcr.microsoft.com/dotnet/sdk:5.0-focal AS build
 WORKDIR /src
 COPY . .
-RUN dotnet restore "./pocket.Logs.Ingress.csproj"
+RUN dotnet restore "./pocket.Logs.Ingress/pocket.Logs.Ingress.csproj"
 
-RUN dotnet build "./pocket.Logs.Ingress.csproj" -c Release -o /app/build
+RUN dotnet build "./pocket.Logs.Ingress/pocket.Logs.Ingress.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "./pocket.Logs.Ingress.csproj" -c Release -o /app/publish
+RUN dotnet publish "./pocket.Logs.Ingress/pocket.Logs.Ingress.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

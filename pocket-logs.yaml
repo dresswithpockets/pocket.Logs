@@ -1,0 +1,28 @@
+alerts:
+- rule: DEPLOYMENT_FAILED
+- rule: DOMAIN_FAILED
+databases:
+- engine: PG
+  name: db
+  num_nodes: 1
+  size: db-s-dev-database
+  version: "12"
+name: pocket-logs
+region: nyc
+services:
+- dockerfile_path: deploy-ingress.Dockerfile
+  envs:
+  - key: DATABASE_URL
+    scope: RUN_TIME
+    value: ${db.DATABASE_URL}
+  github:
+    branch: prod
+    deploy_on_push: true
+    repo: dresswithpockets/pocket.Logs
+  http_port: 5000
+  instance_count: 1
+  instance_size_slug: basic-xs
+  name: pocket-logs
+  routes:
+  - path: /
+  source_dir: .
