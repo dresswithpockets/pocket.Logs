@@ -40,7 +40,7 @@ namespace pocket.Logs.Ingress
 
             services.AddHttpClient();
             //services.AddTransient<IQueueConnectionProvider, QueueConnectionProvider>();
-            services.AddTransient<ILogClient, LogClient>();
+            //services.AddTransient<ILogClient, LogClient>();
             //services.AddScoped<LogAnalysisService>();
 
             //services.AddHostedService<LogProcessService>();
