@@ -38,15 +38,13 @@ namespace pocket.Logs.Ingress
             services.AddFluentValidation(c =>
                 c.RegisterValidatorsFromAssemblyContaining<Startup>(includeInternalTypes: true));
 
-            services.AddOptions<RabbitMqConfiguration>();
-
             services.AddHttpClient();
-            services.AddTransient<IQueueConnectionProvider, QueueConnectionProvider>();
+            //services.AddTransient<IQueueConnectionProvider, QueueConnectionProvider>();
             services.AddTransient<ILogClient, LogClient>();
             services.AddScoped<LogAnalysisService>();
 
-            services.AddHostedService<LogProcessService>();
-            services.AddHostedService<IngressService>();
+            //services.AddHostedService<LogProcessService>();
+            //services.AddHostedService<IngressService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
