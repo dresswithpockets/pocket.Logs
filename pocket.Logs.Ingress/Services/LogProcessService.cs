@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using pocket.Logs.Core.Data;
 
@@ -11,11 +12,13 @@ namespace pocket.Logs.Ingress.Services
     public class LogProcessService : CronJobService
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;
+        private readonly ILogger<LogProcessService> _logger;
 
         public LogProcessService(IServiceScopeFactory serviceScopeFactory,
-            IOptions<LogsTfProcessorConfiguration> configuration)
+            IOptions<LogsTfProcessorConfiguration> configuration, ILogger<LogProcessService> logger)
         {
             _serviceScopeFactory = serviceScopeFactory;
+            _logger = logger;
 
             Expression = configuration.Value.Cron;
         }
@@ -34,6 +37,8 @@ namespace pocket.Logs.Ingress.Services
 
             var logs = await logsContext.RetrievedLogs.OrderBy(l => l.CreatedAt).Where(l => !l.Processed)
                 .ToListAsync(cancellationToken);
+            _logger.LogInformation(IngressEventIds.ProcessingLogs,
+                $"Dispatching {logs.Count} unprocessed logs to analysis service.");
             var tasks = logs.Select(l => analysisService.AnalyzeAsync(l, cancellationToken));
             await Task.WhenAll(tasks);
         }

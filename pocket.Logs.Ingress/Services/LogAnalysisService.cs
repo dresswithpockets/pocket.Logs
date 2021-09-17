@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using pocket.Logs.Core.Data;
 using pocket.Logs.Core.Skills;
 using Player = pocket.Logs.Core.Data.Player;
@@ -14,11 +15,13 @@ namespace pocket.Logs.Ingress.Services
     {
         private readonly LogsContext _context;
         private readonly ILogClient _logClient;
+        private readonly ILogger<LogAnalysisService> _logger;
 
-        public LogAnalysisService(LogsContext context, ILogClient logClient)
+        public LogAnalysisService(LogsContext context, ILogClient logClient, ILogger<LogAnalysisService> logger)
         {
             _context = context;
             _logClient = logClient;
+            _logger = logger;
         }
 
         public async Task AnalyzeAsync(RetrievedLog retrievedLog, CancellationToken cancellationToken = default)
