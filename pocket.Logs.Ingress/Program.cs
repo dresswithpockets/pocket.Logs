@@ -14,8 +14,8 @@ namespace pocket.Logs.Ingress
             
             using (var scope = host.Services.CreateScope())
             {
-                var db = scope.ServiceProvider.GetRequiredService<LogsContext>();
-                db.Database.Migrate();
+                var db = scope.ServiceProvider.GetService<LogsContext>();
+                db?.Database?.Migrate();
             }
 
             host.Run();
