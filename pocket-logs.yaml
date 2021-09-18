@@ -2,34 +2,35 @@ alerts:
 - rule: DEPLOYMENT_FAILED
 - rule: DOMAIN_FAILED
 databases:
-- engine: PG
+- cluster_name: app-9442a663-3ad6-4375-9522-9e0d6119e62a
+  db_name: logsdb
+  db_user: logsdb
+  engine: PG
   name: logsdb
   num_nodes: 1
+  production: true
   size: db-s-dev-database
-  version: "12"
+  version: "13"
 name: pocket-logs
 region: nyc
 services:
 - dockerfile_path: deploy-api.Dockerfile
   envs:
-  - key: DATABASE_URL
-    scope: RUN_TIME
-    value: ${db.DATABASE_URL}
   - key: LogsDb__Host
     scope: RUN_TIME
-    value: ${db.HOSTNAME}
+    value: ${logsdb.HOSTNAME}
   - key: LogsDb__Port
     scope: RUN_TIME
-    value: ${db.PORT}
+    value: ${logsdb.PORT}
   - key: LogsDb__Database
     scope: RUN_TIME
-    value: ${db.DATABASE}
+    value: ${logsdb.DATABASE}
   - key: LogsDb__Username
     scope: RUN_TIME
-    value: ${db.USERNAME}
+    value: ${logsdb.USERNAME}
   - key: LogsDb__Password
     scope: RUN_TIME
-    value: ${db.PASSWORD}
+    value: ${logsdb.PASSWORD}
   github:
     branch: prod
     deploy_on_push: true
