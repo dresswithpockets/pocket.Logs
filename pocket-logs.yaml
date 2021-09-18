@@ -10,7 +10,7 @@ databases:
 name: pocket-logs
 region: nyc
 services:
-- dockerfile_path: deploy-ingress.Dockerfile
+- dockerfile_path: deploy-api.Dockerfile
   envs:
   - key: DATABASE_URL
     scope: RUN_TIME
@@ -37,7 +37,36 @@ services:
   http_port: 5000
   instance_count: 1
   instance_size_slug: basic-xs
-  name: ingress
+  name: api
   routes:
   - path: /
+  source_dir: .
+workers:
+- dockerfile_path: deploy-ingress.Dockerfile
+  envs:
+  - key: DATABASE_URL
+    scope: RUN_TIME
+    value: ${db.DATABASE_URL}
+  - key: LogsDb__Host
+    scope: RUN_TIME
+    value: ${db.HOSTNAME}
+  - key: LogsDb__Port
+    scope: RUN_TIME
+    value: ${db.PORT}
+  - key: LogsDb__Database
+    scope: RUN_TIME
+    value: ${db.DATABASE}
+  - key: LogsDb__Username
+    scope: RUN_TIME
+    value: ${db.USERNAME}
+  - key: LogsDb__Password
+    scope: RUN_TIME
+    value: ${db.PASSWORD}
+  github:
+    branch: prod
+    deploy_on_push: true
+    repo: dresswithpockets/pocket.Logs
+  instance_count: 1
+  instance_size_slug: basic-xs
+  name: ingress
   source_dir: .
