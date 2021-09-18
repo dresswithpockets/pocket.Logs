@@ -26,9 +26,9 @@ services:
     value: ${logsdb.USERNAME}
   - key: LogsDb__Password
     value: ${logsdb.PASSWORD}
-  - key: LogsDb_SslMode
-    value: 'true'
-  - key: LogsDb_CaSert
+  - key: LogsDb__SslMode
+    value: 'required'
+  - key: LogsDb__CaSert
     value: ${logsdb.CA_CERT}
   github:
     branch: prod
@@ -54,9 +54,9 @@ workers:
     value: ${logsdb.USERNAME}
   - key: LogsDb__Password
     value: ${logsdb.PASSWORD}
-  - key: LogsDb_SslMode
-    value: 'true'
-  - key: LogsDb_CaSert
+  - key: LogsDb__SslMode
+    value: 'required'
+  - key: LogsDb__CaSert
     value: ${logsdb.CA_CERT}
   github:
     branch: prod

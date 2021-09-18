@@ -1,5 +1,12 @@
 FROM mcr.microsoft.com/dotnet/aspnet:5.0-focal AS base
 ARG ENV
+ARG LogsDb__Host
+ARG LogsDb__Port
+ARG LogsDb__Database
+ARG LogsDb__Username
+ARG LogsDb__Password
+ARG LogsDb__SslMode
+ARG LogsDb__CaSert
 WORKDIR /app
 EXPOSE 5000
 
