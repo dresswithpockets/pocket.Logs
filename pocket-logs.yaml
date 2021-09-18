@@ -17,24 +17,18 @@ services:
 - dockerfile_path: deploy-api.Dockerfile
   envs:
   - key: LogsDb__Host
-    scope: RUN_TIME
     value: ${logsdb.HOSTNAME}
   - key: LogsDb__Port
-    scope: RUN_TIME
     value: ${logsdb.PORT}
   - key: LogsDb__Database
-    scope: RUN_TIME
     value: ${logsdb.DATABASE}
   - key: LogsDb__Username
-    scope: RUN_TIME
     value: ${logsdb.USERNAME}
   - key: LogsDb__Password
-    scope: RUN_TIME
     value: ${logsdb.PASSWORD}
   - key: LogsDb_SslMode
     value: 'true'
   - key: LogsDb_CaSert
-    scope: RUN_TIME
     value: ${logsdb.CA_CERT}
   github:
     branch: prod
@@ -51,24 +45,18 @@ workers:
 - dockerfile_path: deploy-ingress.Dockerfile
   envs:
   - key: LogsDb__Host
-    scope: RUN_TIME
     value: ${logsdb.HOSTNAME}
   - key: LogsDb__Port
-    scope: RUN_TIME
     value: ${logsdb.PORT}
   - key: LogsDb__Database
-    scope: RUN_TIME
     value: ${logsdb.DATABASE}
   - key: LogsDb__Username
-    scope: RUN_TIME
     value: ${logsdb.USERNAME}
   - key: LogsDb__Password
-    scope: RUN_TIME
     value: ${logsdb.PASSWORD}
   - key: LogsDb_SslMode
     value: 'true'
   - key: LogsDb_CaSert
-    scope: RUN_TIME
     value: ${logsdb.CA_CERT}
   github:
     branch: prod
