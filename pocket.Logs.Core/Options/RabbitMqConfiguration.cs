@@ -1,4 +1,4 @@
-﻿namespace pocket.Logs.Ingress
+﻿namespace pocket.Logs.Core.Options
 {
     public class RabbitMqConfiguration
     {

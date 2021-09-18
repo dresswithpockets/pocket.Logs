@@ -1,7 +1,6 @@
-﻿using System.Data.SqlClient;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
-namespace pocket.Logs.Ingress.Options
+namespace pocket.Logs.Core.Options
 {
     public class LogsDbConfiguration
     {

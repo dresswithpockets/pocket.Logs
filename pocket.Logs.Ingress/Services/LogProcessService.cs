@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using pocket.Logs.Core.Data;
-using pocket.Logs.Ingress.Options;
+using pocket.Logs.Core.Options;
 
 namespace pocket.Logs.Ingress.Services
 {

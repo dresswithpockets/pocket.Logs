@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.Options;
 using pocket.Logs.Core.Interfaces;
+using pocket.Logs.Core.Options;
 using RabbitMQ.Client;
 
 namespace pocket.Logs.Ingress.Services

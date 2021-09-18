@@ -11,8 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using pocket.Logs.Core.Data;
 using pocket.Logs.Core.Interfaces;
+using pocket.Logs.Core.Options;
 using pocket.Logs.Ingress.Extensions;
-using pocket.Logs.Ingress.Options;
 
 namespace pocket.Logs.Ingress.Services
 {

@@ -8,8 +8,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using pocket.Logs.Core.Data;
+using pocket.Logs.Core.Extensions;
 using pocket.Logs.Core.Interfaces;
-using pocket.Logs.Ingress.Options;
+using pocket.Logs.Core.Options;
 using pocket.Logs.Ingress.Services;
 
 namespace pocket.Logs.Ingress
@@ -30,21 +31,8 @@ namespace pocket.Logs.Ingress
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<LogsDbConfiguration>(Configuration.GetSection(LogsDbConfiguration.LogsDb));
-            services.Configure<LogsTfIngressConfiguration>(
-                Configuration.GetSection(LogsTfIngressConfiguration.LogsTfIngress));
-            services.Configure<LogsTfProcessorConfiguration>(
-                Configuration.GetSection(LogsTfProcessorConfiguration.LogsTfProcessor));
-            services.Configure<RabbitMqConfiguration>(Configuration.GetSection(RabbitMqConfiguration.RabbitMq));
-
-            services.AddDbContext<LogsContext>(
-                (s, b) =>
-                    b.UseLazyLoadingProxies()
-                        .UseNpgsql(HostEnvironment.IsProduction()
-                                ? s.GetRequiredService<IOptions<LogsDbConfiguration>>().Value.ConnectionString
-                                : Configuration.GetConnectionString("Default"),
-                            x =>
-                                x.MigrationsAssembly("pocket.Logs.Migrations")));
+            services.AddLogsConfiguration(Configuration);
+            services.AddLogsDb(HostEnvironment, Configuration);
 
             services.AddGrpc();
 

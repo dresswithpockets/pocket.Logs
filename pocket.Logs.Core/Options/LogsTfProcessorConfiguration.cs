@@ -1,4 +1,4 @@
-﻿namespace pocket.Logs.Ingress.Options
+﻿namespace pocket.Logs.Core.Options
 {
     public class LogsTfProcessorConfiguration
     {
