@@ -45,24 +45,21 @@ services:
 workers:
 - dockerfile_path: deploy-ingress.Dockerfile
   envs:
-  - key: DATABASE_URL
-    scope: RUN_TIME
-    value: ${db.DATABASE_URL}
   - key: LogsDb__Host
     scope: RUN_TIME
-    value: ${db.HOSTNAME}
+    value: ${logsdb.HOSTNAME}
   - key: LogsDb__Port
     scope: RUN_TIME
-    value: ${db.PORT}
+    value: ${logsdb.PORT}
   - key: LogsDb__Database
     scope: RUN_TIME
-    value: ${db.DATABASE}
+    value: ${logsdb.DATABASE}
   - key: LogsDb__Username
     scope: RUN_TIME
-    value: ${db.USERNAME}
+    value: ${logsdb.USERNAME}
   - key: LogsDb__Password
     scope: RUN_TIME
-    value: ${db.PASSWORD}
+    value: ${logsdb.PASSWORD}
   github:
     branch: prod
     deploy_on_push: true
