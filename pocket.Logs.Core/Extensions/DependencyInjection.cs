@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -18,16 +20,29 @@ namespace pocket.Logs.Core.Extensions
                 .Configure<LogsTfProcessorConfiguration>(
                     configuration.GetSection(LogsTfProcessorConfiguration.LogsTfProcessor))
                 .Configure<RabbitMqConfiguration>(configuration.GetSection(RabbitMqConfiguration.RabbitMq));
-        
+
         public static IServiceCollection AddLogsDb(this IServiceCollection serviceCollection,
-            IHostEnvironment hostEnvironment, IConfiguration configuration) => 
-            serviceCollection.AddDbContext<LogsContext>(
-            (s, b) =>
-                b.UseLazyLoadingProxies()
-                    .UseNpgsql(hostEnvironment.IsProduction()
-                            ? s.GetRequiredService<IOptions<LogsDbConfiguration>>().Value.ConnectionString
-                            : configuration.GetConnectionString("Default"),
-                        x =>
-                            x.MigrationsAssembly("pocket.Logs.Migrations")));
+            IHostEnvironment hostEnvironment, IConfiguration configuration)
+        {
+            return serviceCollection.AddDbContext<LogsContext>(
+                (s, b) =>
+                {
+                    var config = s.GetRequiredService<IOptions<LogsDbConfiguration>>();
+                    var connString = hostEnvironment.IsProduction()
+                        ? config.Value.ConnectionString
+                        : configuration.GetConnectionString("Default");
+                    b.UseLazyLoadingProxies()
+                        .UseNpgsql(connString,
+                            x =>
+                            {
+                                x.MigrationsAssembly("pocket.Logs.Migrations");
+                                
+                                if (!config.Value.SslRequired) return;
+                                
+                                var bytes = Encoding.UTF8.GetBytes(config.Value.CaCert);
+                                x.ProvideClientCertificatesCallback(c => c.Add(new X509Certificate(bytes)));
+                            });
+                });
+        }
     }
 }
