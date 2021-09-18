@@ -31,6 +31,11 @@ services:
   - key: LogsDb__Password
     scope: RUN_TIME
     value: ${logsdb.PASSWORD}
+  - key: LogsDb_SslRequired
+    value: true
+  - key: LogsDb_CaSert
+    scope: RUN_TIME
+    value: ${logsdb.CA_CERT}
   github:
     branch: prod
     deploy_on_push: true
@@ -60,6 +65,11 @@ workers:
   - key: LogsDb__Password
     scope: RUN_TIME
     value: ${logsdb.PASSWORD}
+  - key: LogsDb_SslRequired
+    value: true
+  - key: LogsDb_CaSert
+    scope: RUN_TIME
+    value: ${logsdb.CA_CERT}
   github:
     branch: prod
     deploy_on_push: true
