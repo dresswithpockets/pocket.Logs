@@ -74,7 +74,7 @@ namespace pocket.Logs.Ingress.Services
 
             // add the new log information to the database, only adding the latest logs which have not already been
             // included - this assumes that the log Ids are monotonic (can never go backwards)
-            var uniqueLogs = logs.Where(l => l.Id > mostRecentId);
+            var uniqueLogs = logs.Where(l => l.Id > (mostRecentId ?? 0));
             var transformedLogs = uniqueLogs.Select(l => new RetrievedLog
             {
                 LogId = l.Id,
