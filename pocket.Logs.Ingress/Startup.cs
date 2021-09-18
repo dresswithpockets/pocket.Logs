@@ -16,8 +16,14 @@ namespace pocket.Logs.Ingress
     {
         public IConfiguration Configuration { get; }
 
-        public Startup(IConfiguration configuration) => Configuration = configuration;
-        
+        public IHostEnvironment HostEnvironment { get; }
+
+        public Startup(IConfiguration configuration, IHostEnvironment hostEnvironment)
+        {
+            Configuration = configuration;
+            HostEnvironment = hostEnvironment;
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
@@ -28,10 +34,13 @@ namespace pocket.Logs.Ingress
                 Configuration.GetSection(LogsTfProcessorConfiguration.LogsTfProcessor));
             services.Configure<RabbitMqConfiguration>(Configuration.GetSection(RabbitMqConfiguration.RabbitMq));
 
-             services.AddDbContext<LogsContext>(b => b
-                 .UseLazyLoadingProxies()
-                 .UseNpgsql(Configuration.GetConnectionString("Default"),
-                     x => x.MigrationsAssembly("pocket.Logs.Migrations")));
+            var connectionString = HostEnvironment.IsProduction()
+                ? Configuration.GetValue<string>("DATABASE_URL")
+                : Configuration.GetConnectionString("Default");
+
+            services.AddDbContext<LogsContext>(b => b
+                .UseLazyLoadingProxies()
+                .UseNpgsql(connectionString, x => x.MigrationsAssembly("pocket.Logs.Migrations")));
 
             services.AddGrpc();
 
