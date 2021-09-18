@@ -17,16 +17,14 @@ namespace pocket.Logs.Ingress.Services
 {
     public class IngressService : CronJobService
     {
-        private readonly IQueueConnectionProvider _queueConnectionProvider;
         private readonly ILogClient _logClient;
         private readonly IServiceScopeFactory _serviceScopeFactory;
         private readonly uint _bulkLimit;
         private readonly uint _queryLimit;
 
-        public IngressService(IQueueConnectionProvider queueConnectionProvider, ILogClient logClient,
-            IServiceScopeFactory serviceScopeFactory, IOptions<LogsTfIngressConfiguration> configuration)
+        public IngressService(ILogClient logClient, IServiceScopeFactory serviceScopeFactory,
+            IOptions<LogsTfIngressConfiguration> configuration)
         {
-            _queueConnectionProvider = queueConnectionProvider;
             _logClient = logClient;
             _serviceScopeFactory = serviceScopeFactory;
 
@@ -45,12 +43,12 @@ namespace pocket.Logs.Ingress.Services
         {
             using var scope = _serviceScopeFactory.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<LogsContext>();
-            
+
             // get our most recently retrieved log ID
             var mostRecent = await context.RetrievedLogs.OrderByDescending(r => r.LogId)
                 .FirstOrDefaultAsync(cancellationToken);
             var mostRecentId = mostRecent?.LogId;
-            
+
             // get the most recent n logs from logs.tf - if our stored log ID isn't in the list, continue to aggregate
             // more logs
             var logs = new List<QueryLog>();
@@ -89,7 +87,7 @@ namespace pocket.Logs.Ingress.Services
             }).ToList();
             await context.AddRangeAsync(transformedLogs, cancellationToken);
             await context.SaveChangesAsync(cancellationToken);
-            
+
             /*var unprocessedLogs = await context.RetrievedLogs.Where(r => !r.Processed).Select(r => r.LogId)
                 .ToListAsync(cancellationToken);
 
