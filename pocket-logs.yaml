@@ -3,7 +3,7 @@ alerts:
 - rule: DOMAIN_FAILED
 databases:
 - cluster_name: app-9442a663-3ad6-4375-9522-9e0d6119e62a
-  db_name: logsdb
+  db_name: logsdb-default-pool
   db_user: logsdb
   engine: PG
   name: logsdb
