@@ -31,8 +31,8 @@ services:
   - key: LogsDb__Password
     scope: RUN_TIME
     value: ${logsdb.PASSWORD}
-  - key: LogsDb_SslRequired
-    value: true
+  - key: LogsDb_SslMode
+    value: 'true'
   - key: LogsDb_CaSert
     scope: RUN_TIME
     value: ${logsdb.CA_CERT}
@@ -65,8 +65,8 @@ workers:
   - key: LogsDb__Password
     scope: RUN_TIME
     value: ${logsdb.PASSWORD}
-  - key: LogsDb_SslRequired
-    value: true
+  - key: LogsDb_SslMode
+    value: 'true'
   - key: LogsDb_CaSert
     scope: RUN_TIME
     value: ${logsdb.CA_CERT}
