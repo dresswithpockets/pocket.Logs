@@ -37,11 +37,14 @@ namespace pocket.Logs.Ingress
                 Configuration.GetSection(LogsTfProcessorConfiguration.LogsTfProcessor));
             services.Configure<RabbitMqConfiguration>(Configuration.GetSection(RabbitMqConfiguration.RabbitMq));
 
-            services.AddDbContext<LogsContext>((s, b) => b.UseLazyLoadingProxies().UseNpgsql(
-                HostEnvironment.IsProduction()
-                    ? s.GetRequiredService<IOptions<LogsDbConfiguration>>().Value.ConnectionString
-                    : Configuration.GetConnectionString("Default"),
-                x => x.MigrationsAssembly("pocket.Logs.Migrations")));
+            services.AddDbContext<LogsContext>(
+                (s, b) =>
+                    b.UseLazyLoadingProxies()
+                        .UseNpgsql(HostEnvironment.IsProduction()
+                                ? s.GetRequiredService<IOptions<LogsDbConfiguration>>().Value.ConnectionString
+                                : Configuration.GetConnectionString("Default"),
+                            x =>
+                                x.MigrationsAssembly("pocket.Logs.Migrations")));
 
             services.AddGrpc();
 
