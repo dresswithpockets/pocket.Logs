@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Text.Json.Serialization;
 
 namespace pocket.Logs.Core.Options
 {
@@ -16,8 +17,14 @@ namespace pocket.Logs.Core.Options
 
         public string Password { get; set; }
 
+        public string? SslMode { get; set; }
+
+        public bool SslRequired => SslMode.Equals("required", StringComparison.OrdinalIgnoreCase);
+
+        public string CaCert { get; set; }
+
         [JsonIgnore]
         public string ConnectionString =>
-            $"Host={Host}:{Port};Database={Database};Username={Username};Password={Password}";
+            $"Host={Host}:{Port};Database={Database};Username={Username};Password={Password};SslMode={SslMode}";
     }
 }
