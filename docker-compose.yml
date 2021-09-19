@@ -27,3 +27,10 @@ services:
     restart: always
     volumes:
       - ./localdb/data:/var/lib/postgresql
+
+  api:
+    build:
+      dockerfile: deploy-api.Dockerfile
+    ports:
+      - 5000:80
+    profiles: ['full', 'api']
