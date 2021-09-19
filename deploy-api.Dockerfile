@@ -5,7 +5,7 @@ ARG LogsDbDatabase
 ARG LogsDbUsername
 ARG LogsDbPassword
 ARG LogsDbSslMode
-ARG LogsDbCaSert
+ARG LogsDbCaCert
 WORKDIR /app
 EXPOSE 5000
 
@@ -17,7 +17,7 @@ ENV LogsDb__Database=${LogsDbDatabase}
 ENV LogsDb__Username=${LogsDbUsername}
 ENV LogsDb__Password=${LogsDbPassword}
 ENV LogsDb__SslMode=${LogsDbSslMode}
-ENV LogsDb__CaSert=${LogsDbCaSert}
+ENV LogsDb__CaCert=${LogsDbCaCert}
 
 # Creates a non-root user with an explicit UID and adds permission to access the /app folder
 # For more info, please refer to https://aka.ms/vscode-docker-dotnet-configure-containers

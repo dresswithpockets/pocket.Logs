@@ -34,7 +34,7 @@ services:
   - key: LogsDbSslMode
     scope: RUN_AND_BUILD_TIME
     value: required
-  - key: LogsDbCaSert
+  - key: LogsDbCaCert
     scope: RUN_AND_BUILD_TIME
     value: ${logsdb.CA_CERT}
   github:
@@ -69,7 +69,7 @@ workers:
   - key: LogsDbSslMode
     scope: RUN_AND_BUILD_TIME
     value: required
-  - key: LogsDbCaSert
+  - key: LogsDbCaCert
     scope: RUN_AND_BUILD_TIME
     value: ${logsdb.CA_CERT}
   github:
