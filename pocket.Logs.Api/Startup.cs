@@ -30,7 +30,7 @@ namespace pocket.Logs.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            Console.WriteLine("SslMode: {0}", Configuration.GetValue<string>("LogsDb__SslMode"));
+            throw new Exception($"SslMode: {Configuration.GetValue<string>("LogsDb__SslMode")}");
 
             services.AddLogsConfiguration(Configuration);
             services.AddLogsDb(HostEnvironment, Configuration);
