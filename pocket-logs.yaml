@@ -16,25 +16,25 @@ region: nyc
 services:
 - dockerfile_path: deploy-api.Dockerfile
   envs:
-  - key: LogsDb__Host
+  - key: LogsDbHost
     scope: RUN_AND_BUILD_TIME
     value: ${logsdb.HOSTNAME}
-  - key: LogsDb__Port
+  - key: LogsDbPort
     scope: RUN_AND_BUILD_TIME
     value: ${logsdb.PORT}
-  - key: LogsDb__Database
+  - key: LogsDbDatabase
     scope: RUN_AND_BUILD_TIME
     value: ${logsdb.DATABASE}
-  - key: LogsDb__Username
+  - key: LogsDbUsername
     scope: RUN_AND_BUILD_TIME
     value: ${logsdb.USERNAME}
-  - key: LogsDb__Password
+  - key: LogsDbPassword
     scope: RUN_AND_BUILD_TIME
     value: ${logsdb.PASSWORD}
-  - key: LogsDb__SslMode
+  - key: LogsDbSslMode
     scope: RUN_AND_BUILD_TIME
     value: required
-  - key: LogsDb__CaSert
+  - key: LogsDbCaSert
     scope: RUN_AND_BUILD_TIME
     value: ${logsdb.CA_CERT}
   github:
@@ -48,35 +48,35 @@ services:
   routes:
   - path: /
   source_dir: .
-# workers:
-# - dockerfile_path: deploy-ingress.Dockerfile
-#   envs:
-#   - key: LogsDb__Host
-#     scope: RUN_AND_BUILD_TIME
-#     value: ${logsdb.HOSTNAME}
-#   - key: LogsDb__Port
-#     scope: RUN_AND_BUILD_TIME
-#     value: ${logsdb.PORT}
-#   - key: LogsDb__Database
-#     scope: RUN_AND_BUILD_TIME
-#     value: ${logsdb.DATABASE}
-#   - key: LogsDb__Username
-#     scope: RUN_AND_BUILD_TIME
-#     value: ${logsdb.USERNAME}
-#   - key: LogsDb__Password
-#     scope: RUN_AND_BUILD_TIME
-#     value: ${logsdb.PASSWORD}
-#   - key: LogsDb__SslMode
-#     scope: RUN_AND_BUILD_TIME
-#     value: required
-#   - key: LogsDb__CaSert
-#     scope: RUN_AND_BUILD_TIME
-#     value: ${logsdb.CA_CERT}
-#   github:
-#     branch: prod
-#     deploy_on_push: true
-#     repo: dresswithpockets/pocket.Logs
-#   instance_count: 1
-#   instance_size_slug: basic-xs
-#   name: ingress
-#   source_dir: .
+workers:
+- dockerfile_path: deploy-ingress.Dockerfile
+  envs:
+  - key: LogsDbHost
+    scope: RUN_AND_BUILD_TIME
+    value: ${logsdb.HOSTNAME}
+  - key: LogsDbPort
+    scope: RUN_AND_BUILD_TIME
+    value: ${logsdb.PORT}
+  - key: LogsDbDatabase
+    scope: RUN_AND_BUILD_TIME
+    value: ${logsdb.DATABASE}
+  - key: LogsDbUsername
+    scope: RUN_AND_BUILD_TIME
+    value: ${logsdb.USERNAME}
+  - key: LogsDbPassword
+    scope: RUN_AND_BUILD_TIME
+    value: ${logsdb.PASSWORD}
+  - key: LogsDbSslMode
+    scope: RUN_AND_BUILD_TIME
+    value: required
+  - key: LogsDbCaSert
+    scope: RUN_AND_BUILD_TIME
+    value: ${logsdb.CA_CERT}
+  github:
+    branch: prod
+    deploy_on_push: true
+    repo: dresswithpockets/pocket.Logs
+  instance_count: 1
+  instance_size_slug: basic-xs
+  name: ingress
+  source_dir: .
