@@ -19,6 +19,7 @@ namespace pocket.Logs.Core.Options
 
         public string? SslMode { get; set; }
 
+        [JsonIgnore]
         public bool SslRequired => SslMode.Equals("required", StringComparison.OrdinalIgnoreCase);
 
         public string CaCert { get; set; }
