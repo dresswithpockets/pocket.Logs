@@ -8,9 +8,6 @@ ARG LogsDb__SslMode
 ARG LogsDb__CaSert
 WORKDIR /app
 
-RUN echo ${LogsDB__Username}
-RUN echo ${LogsDb__SslMode}
-
 ENV ASPNETCORE_ENVIRONMENT=Production
 ENV LogsDb__Host=${LogsDb__Host}
 ENV LogsDb__Port=${LogsDb__Port}
