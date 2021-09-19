@@ -10,8 +10,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using pocket.Logs.Core.Extensions;
+using pocket.Logs.Core.Options;
 
 namespace pocket.Logs.Api
 {
@@ -30,8 +32,6 @@ namespace pocket.Logs.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            throw new Exception($"SslMode: {Configuration.GetValue<string>("LogsDb__SslMode")}");
-
             services.AddLogsConfiguration(Configuration);
             services.AddLogsDb(HostEnvironment, Configuration);
             
