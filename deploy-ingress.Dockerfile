@@ -9,6 +9,13 @@ ARG LogsDb__CaSert
 WORKDIR /app
 
 ENV ASPNETCORE_ENVIRONMENT=Production
+ENV LogsDb__Host=${LogsDb__Host}
+ENV LogsDb__Port=${LogsDb__Port}
+ENV LogsDb__Database=${LogsDb__Database}
+ENV LogsDb__Username=${LogsDb__Username}
+ENV LogsDb__Password=${LogsDb__Password}
+ENV LogsDb__SslMode=${LogsDb__SslMode}
+ENV LogsDb__CaSert=${LogsDb__CaSert}
 
 # Creates a non-root user with an explicit UID and adds permission to access the /app folder
 # For more info, please refer to https://aka.ms/vscode-docker-dotnet-configure-containers
