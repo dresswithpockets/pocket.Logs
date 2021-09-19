@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.Json.Serialization;
+using Npgsql;
 
 namespace pocket.Logs.Core.Options
 {
@@ -19,8 +20,7 @@ namespace pocket.Logs.Core.Options
 
         public string? SslMode { get; set; }
 
-        [JsonIgnore]
-        public bool SslRequired => SslMode.Equals("required", StringComparison.OrdinalIgnoreCase);
+        [JsonIgnore] public bool SslRequired => SslMode?.Equals("Require", StringComparison.OrdinalIgnoreCase) ?? false;
 
         public string CaCert { get; set; }
 
