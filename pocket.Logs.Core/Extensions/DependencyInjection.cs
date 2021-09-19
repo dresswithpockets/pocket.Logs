@@ -14,8 +14,11 @@ namespace pocket.Logs.Core.Extensions
     {
         public static IServiceCollection AddLogsConfiguration(this IServiceCollection serviceCollection,
             IConfiguration configuration) =>
-            serviceCollection.Configure<LogsDbConfiguration>(configuration.GetSection(LogsDbConfiguration.LogsDb))
-                .Configure<LogsTfIngressConfiguration>(
+            serviceCollection.Configure<LogsDbConfiguration>(configuration.GetSection(LogsDbConfiguration.LogsDb));
+
+        public static IServiceCollection AddLogsIngressConfiguration(this IServiceCollection serviceCollection,
+            IConfiguration configuration) => 
+            serviceCollection.Configure<LogsTfIngressConfiguration>(
                     configuration.GetSection(LogsTfIngressConfiguration.LogsTfIngress))
                 .Configure<LogsTfProcessorConfiguration>(
                     configuration.GetSection(LogsTfProcessorConfiguration.LogsTfProcessor))

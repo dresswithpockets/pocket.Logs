@@ -32,6 +32,7 @@ namespace pocket.Logs.Ingress
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddLogsConfiguration(Configuration);
+            services.AddLogsIngressConfiguration(Configuration);
             services.AddLogsDb(HostEnvironment, Configuration);
 
             services.AddGrpc();
