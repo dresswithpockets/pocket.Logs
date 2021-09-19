@@ -1,21 +1,21 @@
 FROM mcr.microsoft.com/dotnet/aspnet:5.0-focal AS base
-ARG LogsDb__Host
-ARG LogsDb__Port
-ARG LogsDb__Database
-ARG LogsDb__Username
-ARG LogsDb__Password
-ARG LogsDb__SslMode
-ARG LogsDb__CaSert
+ARG LogsDbHost
+ARG LogsDbPort
+ARG LogsDbDatabase
+ARG LogsDbUsername
+ARG LogsDbPassword
+ARG LogsDbSslMode
+ARG LogsDbCaSert
 WORKDIR /app
 
 ENV ASPNETCORE_ENVIRONMENT=Production
-ENV LogsDb__Host=${LogsDb__Host}
-ENV LogsDb__Port=${LogsDb__Port}
-ENV LogsDb__Database=${LogsDb__Database}
-ENV LogsDb__Username=${LogsDb__Username}
-ENV LogsDb__Password=${LogsDb__Password}
-ENV LogsDb__SslMode=${LogsDb__SslMode}
-ENV LogsDb__CaSert=${LogsDb__CaSert}
+ENV LogsDb__Host=${LogsDbHost}
+ENV LogsDb__Port=${LogsDbPort}
+ENV LogsDb__Database=${LogsDbDatabase}
+ENV LogsDb__Username=${LogsDbUsername}
+ENV LogsDb__Password=${LogsDbPassword}
+ENV LogsDb__SslMode=${LogsDbSslMode}
+ENV LogsDb__CaSert=${LogsDbCaSert}
 
 # Creates a non-root user with an explicit UID and adds permission to access the /app folder
 # For more info, please refer to https://aka.ms/vscode-docker-dotnet-configure-containers
