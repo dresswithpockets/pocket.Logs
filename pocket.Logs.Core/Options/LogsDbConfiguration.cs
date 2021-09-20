@@ -36,7 +36,9 @@ namespace pocket.Logs.Core.Options
                         sb.Append($"Use SSL Stream=True;TrustServerCertificate=True;");
                 }
                 var ssl = sb.ToString();
-                return $"Host={Host};Port={Port};Database={Database};Username={Username};Password={Password};{ssl}Pooling=true;";
+                var str = $"Host={Host};Port={Port};Database={Database};Username={Username};Password={Password};{ssl}Pooling=true;";
+                throw new Exception(str);
+                return str;
             }
         }
     }
