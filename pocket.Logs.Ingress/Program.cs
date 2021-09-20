@@ -1,8 +1,10 @@
+using System;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using pocket.Logs.Core.Data;
 using pocket.Logs.Core.Extensions;
 using pocket.Logs.Core.Options;
@@ -16,7 +18,10 @@ namespace pocket.Logs.Ingress
             var host = CreateHostBuilder(args).Build();
             
             using (var scope = host.Services.CreateScope())
-            {
+            { 
+                var config = scope.ServiceProvider.GetService<IOptions<LogsDbConfiguration>>();
+                throw new Exception(config.Value.ConnectionString);
+
                 var db = scope.ServiceProvider.GetService<LogsContext>();
                 db?.Database?.Migrate();
             }
