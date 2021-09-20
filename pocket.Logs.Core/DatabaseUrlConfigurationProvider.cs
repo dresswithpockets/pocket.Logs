@@ -30,6 +30,8 @@ namespace pocket.Logs.Core
                 [$"{path}Password"] = userInfo[1],
                 [$"{path}Database"] = dbname,
             };
+
+            Data = settings;
         }
     }
 }
