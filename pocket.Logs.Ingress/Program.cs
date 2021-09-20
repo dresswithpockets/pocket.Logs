@@ -1,9 +1,13 @@
+using System;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using pocket.Logs.Core.Data;
+using pocket.Logs.Core.Extensions;
+using pocket.Logs.Core.Options;
 
 namespace pocket.Logs.Ingress
 {
@@ -26,6 +30,7 @@ namespace pocket.Logs.Ingress
         // For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration(b => b.AddDatabaseUrl(LogsDbConfiguration.LogsDb))
                 .ConfigureLogging(l => l.AddConsole())
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
     }
