@@ -18,14 +18,14 @@ namespace pocket.Logs.Core.Options
 
         public string Password { get; set; }
 
-        public string? SslMode { get; set; }
+        public SslMode? SslMode { get; set; }
 
-        [JsonIgnore] public bool SslRequired => SslMode?.Equals("Require", StringComparison.OrdinalIgnoreCase) ?? false;
+        [JsonIgnore] public bool SslRequired => SslMode == Npgsql.SslMode.Require;
 
         public string CaCert { get; set; }
 
         [JsonIgnore]
         public string ConnectionString =>
-            $"Host={Host}:{Port};Database={Database};Username={Username};Password={Password};SslMode={SslMode}";
+            $"Host={Host}:{Port};Database={Database};Username={Username};Password={Password};{(SslMode != null ? $"SslMode={SslMode}" : string.Empty)}";
     }
 }
