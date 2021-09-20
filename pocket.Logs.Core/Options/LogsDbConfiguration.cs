@@ -33,7 +33,7 @@ namespace pocket.Logs.Core.Options
                 if (SslMode != null) {
                     sb.Append($"SslMode={SslMode};");
                     if (SslMode != Npgsql.SslMode.Disable && CaCert == null)
-                        sb.Append($"Use SSL Stream=True;TrustServerCertificate=True;");
+                        sb.Append($"TrustServerCertificate=True;");
                 }
                 var ssl = sb.ToString();
                 return $"Host={Host};Port={Port};Database={Database};Username={Username};Password={Password};{ssl}Pooling=true;";
