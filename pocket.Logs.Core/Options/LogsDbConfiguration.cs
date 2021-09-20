@@ -26,6 +26,6 @@ namespace pocket.Logs.Core.Options
 
         [JsonIgnore]
         public string ConnectionString =>
-            $"Host={Host}:{Port};Database={Database};Username={Username};Password={Password};{(SslMode != null ? $"SslMode={SslMode}" : string.Empty)}";
+            $"Host={Host};Port={Port};Database={Database};Username={Username};Password={Password};{(SslMode != null ? $"SslMode={SslMode}" : string.Empty)}";
     }
 }
