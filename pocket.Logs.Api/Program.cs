@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using pocket.Logs.Core.Data;
+using pocket.Logs.Core.Extensions;
+using pocket.Logs.Core.Options;
 
 namespace pocket.Logs.Api
 {
@@ -32,6 +34,7 @@ namespace pocket.Logs.Api
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration(b => b.AddDatabaseUrl(LogsDbConfiguration.LogsDb))
                 .ConfigureLogging(l => l.AddConsole())
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
     }
