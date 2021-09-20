@@ -1,9 +1,5 @@
 FROM mcr.microsoft.com/dotnet/aspnet:5.0-focal AS base
-ARG LogsDbHost
-ARG LogsDbPort
-ARG LogsDbDatabase
-ARG LogsDbUsername
-ARG LogsDbPassword
+ARG LogsDbUrl
 ARG LogsDbSslMode
 ARG LogsDbCaCert
 WORKDIR /app
@@ -11,11 +7,7 @@ EXPOSE 5000
 
 ENV ASPNETCORE_URLS=http://+:5000
 ENV ASPNETCORE_ENVIRONMENT=Production
-ENV LogsDb__Host=${LogsDbHost}
-ENV LogsDb__Port=${LogsDbPort}
-ENV LogsDb__Database=${LogsDbDatabase}
-ENV LogsDb__Username=${LogsDbUsername}
-ENV LogsDb__Password=${LogsDbPassword}
+ENV DATABASE_URL=${LogsDbUrl}
 ENV LogsDb__SslMode=${LogsDbSslMode}
 ENV LogsDb__CaCert=${LogsDbCaCert}
 

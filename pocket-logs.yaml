@@ -16,27 +16,9 @@ region: nyc
 services:
 - dockerfile_path: deploy-api.Dockerfile
   envs:
-  - key: LogsDbHost
+  - key: LogsDbUrl
     scope: RUN_AND_BUILD_TIME
-    value: ${logsdb.HOSTNAME}
-  - key: LogsDbPort
-    scope: RUN_AND_BUILD_TIME
-    value: ${logsdb.PORT}
-  - key: LogsDbDatabase
-    scope: RUN_AND_BUILD_TIME
-    value: ${logsdb.DATABASE}
-  - key: LogsDbUsername
-    scope: RUN_AND_BUILD_TIME
-    value: ${logsdb.USERNAME}
-  - key: LogsDbPassword
-    scope: RUN_AND_BUILD_TIME
-    value: ${logsdb.PASSWORD}
-  - key: LogsDbSslMode
-    scope: RUN_AND_BUILD_TIME
-    value: Require
-  - key: LogsDbCaCert
-    scope: RUN_AND_BUILD_TIME
-    value: ${logsdb.CA_CERT}
+    value: ${logsdb.DATABASE_URL}
   github:
     branch: prod
     deploy_on_push: true
@@ -51,27 +33,9 @@ services:
 workers:
 - dockerfile_path: deploy-ingress.Dockerfile
   envs:
-  - key: LogsDbHost
+  - key: LogsDbUrl
     scope: RUN_AND_BUILD_TIME
-    value: ${logsdb.HOSTNAME}
-  - key: LogsDbPort
-    scope: RUN_AND_BUILD_TIME
-    value: ${logsdb.PORT}
-  - key: LogsDbDatabase
-    scope: RUN_AND_BUILD_TIME
-    value: ${logsdb.DATABASE}
-  - key: LogsDbUsername
-    scope: RUN_AND_BUILD_TIME
-    value: ${logsdb.USERNAME}
-  - key: LogsDbPassword
-    scope: RUN_AND_BUILD_TIME
-    value: ${logsdb.PASSWORD}
-  - key: LogsDbSslMode
-    scope: RUN_AND_BUILD_TIME
-    value: Require
-  - key: LogsDbCaCert
-    scope: RUN_AND_BUILD_TIME
-    value: ${logsdb.CA_CERT}
+    value: ${logsdb.DATABASE_URL}
   github:
     branch: prod
     deploy_on_push: true
