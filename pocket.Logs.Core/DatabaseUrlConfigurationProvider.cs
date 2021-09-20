@@ -7,10 +7,10 @@ namespace pocket.Logs.Core
 {
     public class DatabaseUrlConfigurationProvider : ConfigurationProvider
     {
-        private readonly string _databaseUrl;
+        private readonly string? _databaseUrl;
         private readonly string _path;
 
-        public DatabaseUrlConfigurationProvider(string databaseUrl, string path)
+        public DatabaseUrlConfigurationProvider(string? databaseUrl, string path)
         {
             _databaseUrl = databaseUrl;
             _path = path;
@@ -18,6 +18,8 @@ namespace pocket.Logs.Core
 
         public override void Load()
         {
+            if (_databaseUrl == null) return;
+
             var uri = new Uri(_databaseUrl);
             var userInfo = uri.UserInfo.Split(':');
             var dbname = uri.LocalPath.TrimStart('/');
