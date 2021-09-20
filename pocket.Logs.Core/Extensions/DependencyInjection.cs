@@ -12,6 +12,13 @@ namespace pocket.Logs.Core.Extensions
 {
     public static class DependencyInjection
     {
+        public static IConfigurationBuilder AddDatabaseUrl(this IConfigurationBuilder configurationBuilder, string path = "", string urlSource = "DATABASE_URL")
+        {
+            var config = configurationBuilder.Build();
+            var dbUrl = config.GetValue<string>(urlSource);
+            return configurationBuilder.Add(new DatabaseUrlConfigurationSource(dbUrl, path));
+        }
+
         public static IServiceCollection AddLogsConfiguration(this IServiceCollection serviceCollection,
             IConfiguration configuration) =>
             serviceCollection.Configure<LogsDbConfiguration>(configuration.GetSection(LogsDbConfiguration.LogsDb));
