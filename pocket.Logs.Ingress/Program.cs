@@ -18,10 +18,7 @@ namespace pocket.Logs.Ingress
             var host = CreateHostBuilder(args).Build();
             
             using (var scope = host.Services.CreateScope())
-            { 
-                var config = scope.ServiceProvider.GetService<IOptions<LogsDbConfiguration>>();
-                throw new Exception(config.Value.ConnectionString);
-
+            {
                 var db = scope.ServiceProvider.GetService<LogsContext>();
                 db?.Database?.Migrate();
             }
