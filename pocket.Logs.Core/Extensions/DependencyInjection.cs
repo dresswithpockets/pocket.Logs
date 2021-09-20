@@ -47,7 +47,7 @@ namespace pocket.Logs.Core.Extensions
                             {
                                 x.MigrationsAssembly("pocket.Logs.Migrations");
                                 
-                                if (!config.Value.SslRequired) return;
+                                if (!config.Value.SslRequired || config.Value.CaCert == null) return;
                                 
                                 var bytes = Encoding.UTF8.GetBytes(config.Value.CaCert);
                                 x.ProvideClientCertificatesCallback(c => c.Add(new X509Certificate(bytes)));

@@ -22,10 +22,22 @@ namespace pocket.Logs.Core.Options
 
         [JsonIgnore] public bool SslRequired => SslMode == Npgsql.SslMode.Require;
 
-        public string CaCert { get; set; }
+        public string? CaCert { get; set; }
 
         [JsonIgnore]
-        public string ConnectionString =>
-            $"Host={Host};Port={Port};Database={Database};Username={Username};Password={Password};{(SslMode != null ? $"SslMode={SslMode}" : string.Empty)}";
+        public string ConnectionString
+        {
+            get
+            {
+                var sb = new System.Text.StringBuilder();
+                if (SslMode != null) {
+                    sb.Append($"SslMode={SslMode};");
+                    if (SslMode != Npgsql.SslMode.Disable && CaCert == null)
+                        sb.Append($"Use SSL Stream=True;TrustServerCertificate=True;");
+                }
+                var ssl = sb.ToString();
+                return $"Host={Host};Port={Port};Database={Database};Username={Username};Password={Password};{ssl}Pooling=true;";
+            }
+        }
     }
 }
