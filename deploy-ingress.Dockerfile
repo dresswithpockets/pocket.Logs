@@ -4,6 +4,8 @@ ARG LogsDbSslMode
 ARG LogsDbCaCert
 WORKDIR /app
 
+RUN echo ${LogsDbUrl}
+
 ENV ASPNETCORE_ENVIRONMENT=Production
 ENV DATABASE_URL=${LogsDbUrl}
 ENV LogsDb__SslMode=${LogsDbSslMode}

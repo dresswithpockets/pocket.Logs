@@ -17,8 +17,14 @@ services:
 - dockerfile_path: deploy-api.Dockerfile
   envs:
   - key: LogsDbUrl
-    scope: RUN_AND_BUILD_TIME
+    scope: RUN_TIME
     value: ${logsdb.DATABASE_URL}
+  - key: LogsDbCaCert
+    scope: RUN_TIME
+    value: ${logsdb.CA_CERT}
+  - key: LogsDbSslMode
+    scope: RUN_TIME
+    value: Require
   github:
     branch: prod
     deploy_on_push: true
@@ -34,8 +40,14 @@ workers:
 - dockerfile_path: deploy-ingress.Dockerfile
   envs:
   - key: LogsDbUrl
-    scope: RUN_AND_BUILD_TIME
+    scope: RUN_TIME
     value: ${logsdb.DATABASE_URL}
+  - key: LogsDbCaCert
+    scope: RUN_TIME
+    value: ${logsdb.CA_CERT}
+  - key: LogsDbSslMode
+    scope: RUN_TIME
+    value: Require
   github:
     branch: prod
     deploy_on_push: true
