@@ -18,6 +18,8 @@ namespace pocket.Logs.Core
 
         public override void Load()
         {
+            throw new Exception($"Database URL: {_databaseUrl}");
+
             if (_databaseUrl == null) return;
 
             var uri = new Uri(_databaseUrl);
