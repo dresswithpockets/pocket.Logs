@@ -1,7 +1,7 @@
 FROM mcr.microsoft.com/dotnet/aspnet:5.0-focal AS base
-ARG LogsDbUrl
+ARG DATABASE_URL
 ARG LogsDbSslMode
-ARG LogsDbCaCert
+ARG CA_CERT
 WORKDIR /app
 EXPOSE 5000
 
@@ -9,9 +9,9 @@ RUN echo ${LogsDbUrl}
 
 ENV ASPNETCORE_URLS=http://+:5000
 ENV ASPNETCORE_ENVIRONMENT=Production
-ENV DATABASE_URL=${LogsDbUrl}
+ENV DATABASE_URL=${DATABASE_URL}
 ENV LogsDb__SslMode=${LogsDbSslMode}
-ENV LogsDb__CaCert=${LogsDbCaCert}
+ENV CA_CERT=${CA_CERT}
 
 # Creates a non-root user with an explicit UID and adds permission to access the /app folder
 # For more info, please refer to https://aka.ms/vscode-docker-dotnet-configure-containers
