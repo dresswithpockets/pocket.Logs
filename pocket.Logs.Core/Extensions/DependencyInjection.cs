@@ -12,7 +12,7 @@ namespace pocket.Logs.Core.Extensions
 {
     public static class DependencyInjection
     {
-        public static IConfigurationBuilder AddDatabaseUrl(this IConfigurationBuilder configurationBuilder, string path = "", string urlSource = "postgresql://doadmin:show-password@db-postgresql-nyc3-29625-do-user-8809852-0.b.db.ondigitalocean.com:25060/defaultdb?sslmode=require")
+        public static IConfigurationBuilder AddDatabaseUrl(this IConfigurationBuilder configurationBuilder, string path = "", string urlSource = "DATABASE_URL")
         {
             var config = configurationBuilder.Build();
             var dbUrl = config.GetValue<string>(urlSource);
