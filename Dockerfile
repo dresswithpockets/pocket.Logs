@@ -29,6 +29,10 @@ RUN dotnet publish "./pocket.Logs.Api/pocket.Logs.Api.csproj" -c Release -o /app
 FROM base AS final
 ARG DATABASE_URL
 ENV DATABASE_URL=postgresql://doadmin:show-password@db-postgresql-nyc3-29625-do-user-8809852-0.b.db.ondigitalocean.com:25060/defaultdb?sslmode=require
+ARG CA_CERT
+ENV CA_CERT=${CA_CERT}
+ARG name
+ENV name=${name}
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "pocket.Logs.Api.dll"]
