@@ -1,5 +1,5 @@
 FROM mcr.microsoft.com/dotnet/aspnet:5.0-focal AS base
-ARG LogsDbUrl
+ARG DATABASE_URL
 ARG LogsDbSslMode
 ARG LogsDbCaCert
 WORKDIR /app
@@ -7,7 +7,7 @@ WORKDIR /app
 RUN echo ${LogsDbUrl}
 
 ENV ASPNETCORE_ENVIRONMENT=Production
-ENV DATABASE_URL=${LogsDbUrl}
+ENV DATABASE_URL=${DATABASE_URL}
 ENV LogsDb__SslMode=${LogsDbSslMode}
 ENV LogsDb__CaCert=${LogsDbCaCert}
 
