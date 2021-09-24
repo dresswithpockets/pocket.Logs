@@ -27,6 +27,8 @@ FROM build AS publish
 RUN dotnet publish "./pocket.Logs.Api/pocket.Logs.Api.csproj" -c Release -o /app/publish
 
 FROM base AS final
+ARG DATABASE_URL
+ENV DATABASE_URL=${DATABASE_URL}
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "pocket.Logs.Api.dll"]
