@@ -35,5 +35,5 @@ ARG name
 ENV name=${name}
 WORKDIR /app
 COPY --from=publish /app/publish .
-CMD echo $DATABASE_URL && echo $name && echo CA_CERT
+CMD echo $DATABASE_URL && echo $name && echo $CA_CERT
 #ENTRYPOINT ["dotnet", "pocket.Logs.Api.dll"]
