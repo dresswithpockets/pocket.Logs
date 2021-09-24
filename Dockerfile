@@ -9,8 +9,8 @@ RUN echo ${LogsDbUrl}
 
 ENV ASPNETCORE_URLS=http://+:5000
 ENV ASPNETCORE_ENVIRONMENT=Production
-ENV DATABASE_URL=${DATABASE_URL}
-ENV LogsDb__SslMode=${LogsDbSslMode}
+ENV DATABASE_URL=postgresql://doadmin:show-password@db-postgresql-nyc3-29625-do-user-8809852-0.b.db.ondigitalocean.com:25060/defaultdb?sslmode=require
+ENV LogsDb__SslMode=require
 ENV CA_CERT=${CA_CERT}
 
 # Creates a non-root user with an explicit UID and adds permission to access the /app folder
@@ -28,7 +28,7 @@ RUN dotnet publish "./pocket.Logs.Api/pocket.Logs.Api.csproj" -c Release -o /app
 
 FROM base AS final
 ARG DATABASE_URL
-ENV DATABASE_URL=${DATABASE_URL}
+ENV DATABASE_URL=postgresql://doadmin:show-password@db-postgresql-nyc3-29625-do-user-8809852-0.b.db.ondigitalocean.com:25060/defaultdb?sslmode=require
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "pocket.Logs.Api.dll"]
